@@ -1,0 +1,8 @@
+Progress diary:
+
+2nd July 2016
+
+Yousef and Ngure ate working on the HTML code for the webserver.
+The initial script was downloaded from the Bootstrap codes and will be modified accordingly.
+A second page containing the analysis method and the references need to be drafted.
+Please provide the steps done now in outline for this to be written and presented an a HTML page.
