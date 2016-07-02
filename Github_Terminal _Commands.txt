@@ -1,0 +1,20 @@
+GIT Terminal commands list (You can decide to use a GUI for Version system control)
+
+git clone https://github.com/ya73/Team--B--SRP.git
+#This code should be run in a Github folder (directory) on one of the folders of your choice. 
+#It links that directory to the group project on github.
+
+git add -A
+#This adds everything
+
+git commit -m "Comment on what you are adding to the folder and what it contains"
+#This is to commit the file you want to upload- the comment section should detail what changes you have introduced.
+
+git push
+#This is to send the file to the online code depository for members to be able to view and access.
+
+git pull
+#This is to sync your local folder to the content in the git repository.
+
+by: Yousef 2nd July 2016
+
