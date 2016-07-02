@@ -16,5 +16,8 @@ git push
 git pull
 #This is to sync your local folder to the content in the git repository.
 
+git branch
+#Enables you to see the branches on the codes in the project being worked on. Shows the master and other branches.
+
 by: Yousef 2nd July 2016
 
