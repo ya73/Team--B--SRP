@@ -8,3 +8,7 @@ A second page containing the analysis method and the references need to be draft
 Please provide the steps done now in outline for this to be written and presented an a HTML page.
 Getting tophat to work on mutiple laptops.(simon 2/07/2016)
 
+8th july 2016
+gone thorugh some basic cummeRbund commands
+made basic shiny app code available in group github
+
