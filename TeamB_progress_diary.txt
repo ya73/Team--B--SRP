@@ -12,3 +12,5 @@ Getting tophat to work on mutiple laptops.(simon 2/07/2016)
 gone thorugh some basic cummeRbund commands
 made basic shiny app code available in group github
 
+#11th July
+The main index HTML and CSS style file uploaded to github.
