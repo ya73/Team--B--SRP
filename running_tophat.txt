@@ -1,0 +1,12 @@
+unpacked igenome into working directory - working directory contains fastq files and igenome
+
+terminal, in working directory:
+
+	#create path to annotation file
+	$ ln –s ./Rattus_norvegicus_UCSC_rn4/Rattus_norvegicus/UCSC/rn4/Annotation/Genes/genes.gtf
+	
+	#create path to the bowtie2 index files
+	$ ln –s ./Rattus_norvegicus_UCSC_rn4/Rattus_norvegicus/UCSC/rn4/Sequence/BowtieIndex/genome* .
+	#YES THERE IS A SPACE IN THE CODE!!
+	
+	tophat -p 8 -G genes.gtf -o SRR1178073_thout genome SRR1178073_1.fastq SRR1178073_2.fastq
