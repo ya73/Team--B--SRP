@@ -1,0 +1,51 @@
+#replace "test" with the file name
+#make sure correct (rn4 or rn6) igenome is being used
+
+unpack igenome into working directory
+put fastq files into working directory
+
+terminal, in chromosome file:
+	#get ERRC92 sequences in and put all chromosomes into one file to build indexes
+	add ERRC92.fa to chromosome directory
+	cat *.fa > all.fa
+	bowtie2-build all.fa genome
+
+in working directory:
+	#create path to annotation file
+	$ ln –s ./Rattus_norvegicus_UCSC_rn4/Rattus_norvegicus/UCSC/rn4/Annotation/Genes/genes.gtf
+	
+	#create path to the bowtie2 index files
+	$ ln –s ./Rattus_norvegicus_UCSC_rn4/Rattus_norvegicus/UCSC/rn4/Sequence/Bowtie2Index/genome* .
+	#YES THERE IS A SPACE IN THE CODE!!
+	
+in genes:
+	#add ERCC gtf file to igenome annotation
+	copy ERCC.gtf into directory	
+	cat ERCC92.gtf >> genes.gtf
+
+in wholegenomefasta:
+	#copy ERCC.fa into directory
+	cat ERCC92.fa >> genome.fa
+	
+run tophat:
+	tophat -p 4 -G genes.gtf -o test_thout -r 180 -x 10 genome test1.fastq test2.fastq
+	(10-15 hours)
+	
+run 1 of cufflinks:
+	from thout output file, run: 
+	
+	cufflinks -p 4 -o test_clout accepted_hits.bam
+	(~20mins)
+	
+run cuffmerge:	
+	make a file, assemblies.txt, in working directory. file must contain each run pair as 
+	./name_clout/transcripts.gtf 	on separate lines
+	
+	cuffmerge -g genes.gtf -s genome.fa -p 4 assemblies.txt
+	
+	#will output merged.gtf in merged_asm directory
+
+run 2 of cufflinks:	
+	cufflinks -p 4 -g merged_asm/merged.gtf -o 2ndrun_clout test_thout/accepted_hits.bam
+	
+	
