@@ -1,0 +1,68 @@
+###preparation steps
+
+#assigns the location of the directory containing the results directory that contains the directories containing the SRR___ kallisto outputs to base_dir
+base_dir <- "~Desktop/For_Tophat"
+
+#assigns the names of the directories in the results directory to sample_id
+sample_id <- dir(file.path(base_dir,"results"))
+
+#writes the file paths to the directories containing the kallisto data for each sample
+kal_dirs <- sapply(sample_id, function(id) file.path(base_dir, "results", id, "kallisto"))
+
+#if does not exist, hiseq_info.txt must first be created within the base_dir directory. the file should contain tab-separated information for sample id and condition, with headers sample_id and condition
+#associates kallisto data for the samples with their respective conditions 
+s2c <- read.table(file.path(base_dir, "hiseq_info.txt"), header = TRUE, stringsAsFactors = FALSE)
+s2c <- dplyr::select(s2c, sample = run_accession, condition)
+s2c <- dplyr::mutate(s2c, path = kal_dirs)
+
+###sleuth commands. see below for alternative command options regarding gene name incorporation and aggregation by property
+
+#prepares the data stored in s2c, specifies to compare by condition
+so <- sleuth_prep(s2c, ~condition)
+#fits
+so <- sleuth_fit(so)
+#reduces fit
+so <- sleuth_fit(so, ~1, "reduced")
+#find this in the manual
+so <- sleuth_lrt(so, "reduced", "full")
+#idk
+models(so)
+
+
+###to additionally incorporate gene ids and names
+
+#specifies database (ensembl) and dataset (rn6) used  
+mart <- bibmaRt::useMart(biomart = "ENSEMBL_MART_ENSEMBL", dataset = "rnorvegicus_gene_ensembl", host = "ensembl.org")
+
+#"transcript to gene" prints ensembl gene id, ensembl transcript id and gene name for each entry, based on the transcript id present in the kallisto data. renames the columns.
+t2g <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_name"), mart = mart)
+t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+
+#same sleuth steps as before, but using the t2g reference to include gene ids and names 
+so <- sleuth_prep(s2c, ~condition, target_mapping = t2g)
+so <- sleuth_fit(so)
+so <- sleuth_fit(so, ~1, "reduced")
+so <- sleuth_lrt(so, "reduced", "full")
+
+
+###to allow for aggregation by id/name
+#ens_gene used as an example, but could be substituted for ext_gene
+so <- sleuth_prep(s2c, ~condition, target_mapping = t2g, aggregation_column = 'ens_gene')
+so <- sleuth_fit(so)
+so <- sleuth_fit(so, ~1, "reduced")
+so <- sleuth_lrt(so, "reduced", "full")
+
+
+###visualisation of analysis
+
+#to launch browser for interactive analysis fun
+sleuth_live(so) 
+
+#produces a table of p_values etc.
+results_table <- sleuth_results(so, 'reduced:full', test_type = 'lrt')
+
+#to save table
+write.table(results_table, file="filename.tsv", quote=FALSE, sep="\t" col.name=NA)
+
+
+ 
