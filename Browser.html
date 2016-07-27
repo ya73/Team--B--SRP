@@ -1,0 +1,70 @@
+<!--Modified code from http://www.dreamtemplate.com/templates/760/0759.html a simple css example -->
+<!-- basic html page that displays browser function--> 
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" media="screen,print" />
+<title>PIR Browser</title>
+</head>
+<body>
+<div id="left_container"><img src="img/igv.png" alt="Leaves" width="192" height="179" id="logo" />
+  <div id="left_text">
+<!-- to the far left of the page a simple summary-->
+    <h3>SRP project summary</h3>
+   <p>This is a webserver presenting the secondary data analysis output of the RNA-seq data used in the Nature Biotechnlogy publication by Wang et al. 2012. We used three RNA-seq reads from the chemical PIR and a set of three controls.</p>
+
+    <p> The Tuxedo software suite by Trapnell and others comprising of Bowtie, Tophat, Cufflinks and the R package CummeRbund were used in data analysis and results presentation.</p>
+  </div>
+  <div id="left_text">
+  </div>
+</div>
+<!-- links to other pages at the top of the page in a toolbar -->
+<div id="right_container_outer">
+  <div class="navbar" id="nav">
+     <ul>
+
+      <li><a href="index.html" title="Return Home">Home</a></li>
+
+      <li><a href="Browser.html" title="IGV">IGV</a></li>
+
+      <li><a href="Shiny.html" title="Shiny">Shiny</a></li>
+
+      <li><a href="Fastqc.html" title="Fastqc">Fastqc</a></li>
+
+      <li><a href="methods.html" title="Methods">Methods</a></li>
+
+      <li><a href="members.html" title="Members">Members</a></li>
+
+      <li><a href="references.html" title="References">References</a></li>
+
+    </ul>
+  </div>
+<!-- from item that asks user to choose a genome/gene/tracks -->
+  <div id="navbar_fade"></div>
+  <div id="right_container_inner" class="clearfix">
+<!-- when submit button pressed generates html page in a iframe useing a php script  -->
+    <form action="./IGV_JS.php" method="post" target="browser_frame">
+<!-- text input from user -->
+            Enter Gene Short Name e.g Cdk5<input name= "gene" type="text">
+<!-- genome selection -->
+            Choose a Genome:
+            <select name="genome">
+                <option value="rn4">rn4</option>
+                <option value="rn6">rn6</option>
+            </select>
+<!-- tracks(reads) to choose from  -->
+            Choose Readset(hold crtl 4 multiple):
+            <select name="tracks[]" multiple>
+                <option value="PIR_1">SRR1177963</option>
+                <option value="PIR_2">SRR1177964</option>
+                <option value="PIR_3">SRR1177965</option>
+                <option value="CTRL_1">SRR1178000</option>
+                <option value="CTRL_2">SRR1178005</option>
+                <option value="CTRL_3">SRR1178007</option>
+            </select>
+            <input type="submit" name="submit"/>
+        </form>
+<!-- iframe that contains the browser output -->
+    <iframe src="" width="1500" height="900" name="browser_frame" style="background: #FFFFFF;\"></iframe>
+    </div>
+</body>"
+</html>
