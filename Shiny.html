@@ -1,0 +1,49 @@
+<!--Modified code from http://www.dreamtemplate.com/templates/760/0759.html a simple css example -->
+<!--Basic html page that contains the iframe that contains that links to the shiny app -->
+
+<html> 
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" media="screen,print" />
+<title>PIR Shiny</title>
+</head>
+<body>
+<div id="left_container"><img src="img/shiny.png" alt="Leaves" width="192" height="179" id="logo" />
+  <div id="left_text">
+    <h3>SRP project summary</h3>
+
+    <p>This is a webserver presenting the secondary data analysis output of the RNA-seq data used in the Nature Biotechnlogy publication by Wang et al. 2012. We used three RNA-seq reads from the chemical PIR and a set of three controls.</p>
+
+    <p> The Tuxedo software suite by Trapnell and others comprising of Bowtie, Tophat, Cufflinks and the R package CummeRbund were used in data analysis and results presentation.</p>
+  </div>
+  <div id="rci_right_column">
+  </div>
+  <div id="left_text">
+  </div>
+</div>
+<div id="right_container_outer">
+  <div class="navbar" id="nav">
+<ul>
+<!-- links to other pages  -->
+      <li><a href="index.html" title="Return Home">Home</a></li>
+
+      <li><a href="Browser.html" title="IGV">IGV</a></li>
+
+      <li><a href="Shiny.html" title="Shiny">Shiny</a></li>
+
+      <li><a href="Fastqc.html" title="Fastqc">Fastqc</a></li>
+
+      <li><a href="methods.html" title="Methods">Methods</a></li>
+
+      <li><a href="members.html" title="Members">Members</a></li>
+
+      <li><a href="references.html" title="References">References</a></li>
+
+    </ul>
+  </div>
+  <div id="navbar_fade"></div>
+  <div id="right_container_inner" class="clearfix">
+<!-- iframe object that points to the server that is hosting the the app --> 
+    <iframe src="http://127.0.0.1:5975/" width="1500" height="900">
+    </div>
+</body>
+<html>
